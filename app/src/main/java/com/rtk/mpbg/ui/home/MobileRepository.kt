@@ -1,5 +1,6 @@
 package com.rtk.mpbg.ui.home
 
+import android.util.Log
 import com.rtk.mpbg.core.exception.Failure
 import com.rtk.mpbg.core.utils.Either
 import com.rtk.mpbg.core.utils.NetworkHandler
@@ -17,6 +18,7 @@ interface MobileRepository {
     ) : MobileRepository {
 
         override fun mobiles(): Either<Failure, List<Mobile>> {
+            Log.d("Mobile repo","Mobiles ${networkHandler.isNetworkAvailable()}")
             return when (networkHandler.isNetworkAvailable()) {
                 true -> request(
                     service.mobiles(),
@@ -50,6 +52,7 @@ interface MobileRepository {
                     false -> Either.Left(Failure.ServerError)
                 }
             } catch (exception: Throwable) {
+                Log.d("Mobile repo error","Mobile repo $exception")
                 Either.Left(Failure.ServerError)
             }
         }

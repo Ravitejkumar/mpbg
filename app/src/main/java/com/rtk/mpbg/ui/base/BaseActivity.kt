@@ -7,7 +7,7 @@ import com.rtk.mpbg.core.extension.inTransaction
 import com.rtk.mpbg.databinding.ActivityLayoutBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 abstract class BaseActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityLayoutBinding

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.rtk.mpbg.ui.base.BaseActivity
 import com.rtk.mpbg.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 class HomeActivity: BaseActivity() {
     companion object {

@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -19,7 +20,7 @@ class ApplicationModule {
     @Singleton
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://scb-test-mobile.herokuapp.com/api")
+            .baseUrl("https://scb-test-mobile.herokuapp.com/api/")
             .client(createClient())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -27,11 +28,11 @@ class ApplicationModule {
 
     private fun createClient(): OkHttpClient {
         val okHttpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
-//        if (BuildConfig.DEBUG) {
-//            val loggingInterceptor =
-//                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
-//            okHttpClientBuilder.addInterceptor(loggingInterceptor)
-//        }
+        if (BuildConfig.DEBUG) {
+            val loggingInterceptor =
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            okHttpClientBuilder.addInterceptor(loggingInterceptor)
+        }
         return okHttpClientBuilder.build()
     }
 

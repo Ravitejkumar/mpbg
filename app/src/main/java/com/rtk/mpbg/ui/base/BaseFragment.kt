@@ -13,16 +13,16 @@ import com.rtk.mpbg.core.extension.appContext
 import com.rtk.mpbg.R.color
 import dagger.hilt.android.AndroidEntryPoint
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 abstract class BaseFragment: Fragment() {
-    abstract fun layoutId(): Int
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View =
-        inflater.inflate(layoutId(), container, false)
+//    abstract fun layoutId(): Int
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View =
+//        inflater.inflate(layoutId(), container, false)
 
     open fun onBackPressed() {}
 
