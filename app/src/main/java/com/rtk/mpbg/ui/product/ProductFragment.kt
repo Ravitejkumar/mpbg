@@ -7,13 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager
 import com.rtk.mpbg.core.extension.failure
 import com.rtk.mpbg.core.extension.observe
 import com.rtk.mpbg.databinding.FragmentHomeBinding
 import com.rtk.mpbg.databinding.FragmentProductBinding
 import com.rtk.mpbg.ui.base.BaseFragment
 import com.rtk.mpbg.ui.home.MobileParcel
+import com.rtk.mpbg.ui.main.SectionsPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProductFragment: BaseFragment() {
@@ -23,6 +27,9 @@ class ProductFragment: BaseFragment() {
     private var _binding: FragmentProductBinding? = null
 
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var imageAdapter: ProductImageAdapter
 
     companion object {
         private const val PARAM_MOVIE = "param_mobile"
@@ -61,5 +68,8 @@ class ProductFragment: BaseFragment() {
 
     private fun handleProductDetails(details: List<ProductDetails>?){
         Log.d("Product Fragment", "handleProductDetails: $details")
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerView.adapter = imageAdapter
+        imageAdapter.collection = details.orEmpty()
     }
 }
