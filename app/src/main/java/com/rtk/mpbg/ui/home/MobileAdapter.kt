@@ -33,17 +33,26 @@ class MobilesAdapter
             val name: TextView
             val description: TextView
             val image: ImageView
+            val price: TextView
+            val rating: TextView
 
             init {
                 // Define click listener for the ViewHolder's View.
                 name = itemView.findViewById(R.id.mobile_name)
                 description = itemView.findViewById(R.id.description)
                 image = itemView.findViewById(R.id.imageView)
+                price = itemView.findViewById(R.id.price)
+                rating = itemView.findViewById(R.id.rating)
             }
 
         fun bind(movieView: MobileParcel,clickListener: (MobileParcel) -> Unit) {
             name.text = movieView.name
             description.text = movieView.description
+            val priceSTr = "Price: " + movieView.price
+            val ratingStr = "Rating: " + movieView.rating
+            price.text = priceSTr
+            rating.text = ratingStr
+
             image.loadFromUrl(movieView.thumbImageURL)
             itemView.setOnClickListener {
                 clickListener(

@@ -10,8 +10,8 @@ import com.rtk.mpbg.ui.home.MobileListFragment
 import com.rtk.mpbg.ui.home.MobileParcel
 
 private val TAB_TITLES = arrayOf(
-    R.string.tab_text_1,
-    R.string.tab_text_2
+    "ALL",
+    "Favourites"
 )
 
 /**
@@ -32,7 +32,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager, pr
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return context.resources.getString(TAB_TITLES[position])
+        return TAB_TITLES[position]
     }
 
     override fun getCount(): Int {
