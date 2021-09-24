@@ -2,6 +2,7 @@ package com.rtk.mpbg.core.di
 
 import com.rtk.mpbg.BuildConfig
 import com.rtk.mpbg.ui.home.MobileRepository
+import com.rtk.mpbg.ui.product.ProductRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,4 +40,8 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun provideMoviesRepository(dataSource: MobileRepository.Network): MobileRepository = dataSource
+
+    @Provides
+    @Singleton
+    fun provideProductRepository(dataSource: ProductRepository.Network): ProductRepository = dataSource
 }

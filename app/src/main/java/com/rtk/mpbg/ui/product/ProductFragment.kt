@@ -1,16 +1,24 @@
 package com.rtk.mpbg.ui.product
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
+import com.rtk.mpbg.core.extension.failure
+import com.rtk.mpbg.core.extension.observe
 import com.rtk.mpbg.databinding.FragmentHomeBinding
 import com.rtk.mpbg.databinding.FragmentProductBinding
 import com.rtk.mpbg.ui.base.BaseFragment
 import com.rtk.mpbg.ui.home.MobileParcel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductFragment: BaseFragment() {
+
+    private val productViewModel: ProductViewModel by viewModels()
 
     private var _binding: FragmentProductBinding? = null
 
@@ -21,6 +29,14 @@ class ProductFragment: BaseFragment() {
 
         fun forMobile(mobile: MobileParcel?) = ProductFragment().apply {
             arguments = bundleOf(PARAM_MOVIE to mobile)
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        with(productViewModel) {
+            observe(product, ::handleProductDetails)
+//            failure(failure, ::handleFailure)
         }
     }
 
@@ -37,6 +53,13 @@ class ProductFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val mobile = arguments?.get(PARAM_MOVIE) as MobileParcel
+        Log.d("Product Fragment", "onViewCreated: $mobile")
+        productViewModel.getProdcutDetails(mobile.id)
         binding.textView.text = (arguments?.get(PARAM_MOVIE) as MobileParcel).name
+    }
+
+    private fun handleProductDetails(details: List<ProductDetails>?){
+        Log.d("Product Fragment", "handleProductDetails: $details")
     }
 }
