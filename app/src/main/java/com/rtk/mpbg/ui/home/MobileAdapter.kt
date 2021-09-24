@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rtk.mpbg.R
 import com.rtk.mpbg.core.extension.inflate
 import com.rtk.mpbg.core.extension.loadFromUrl
+import com.rtk.mpbg.core.navigation.Navigator
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -18,13 +19,13 @@ class MobilesAdapter
         notifyDataSetChanged()
     }
 
-//    internal var clickListener: (MobileParcel, Navigator.Extras) -> Unit = { _, _ -> }
+    internal var clickListener: (MobileParcel) -> Unit = { _ -> }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(parent.inflate(R.layout.mobile_item))
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) =
-        viewHolder.bind(collection[position])
+        viewHolder.bind(collection[position], clickListener)
 
     override fun getItemCount() = collection.size
 
@@ -40,16 +41,15 @@ class MobilesAdapter
                 image = itemView.findViewById(R.id.imageView)
             }
 
-        fun bind(movieView: MobileParcel) {
+        fun bind(movieView: MobileParcel,clickListener: (MobileParcel) -> Unit) {
             name.text = movieView.name
             description.text = movieView.description
             image.loadFromUrl(movieView.thumbImageURL)
-//            itemView.setOnClickListener {
-//                clickListener(
-//                    movieView,
-//                    Navigator.Extras(itemView.moviePoster)
-//                )
-//            }
+            itemView.setOnClickListener {
+                clickListener(
+                    movieView,
+                )
+            }
         }
     }
 }

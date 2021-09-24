@@ -14,12 +14,17 @@ import com.google.android.material.tabs.TabLayout
 import com.rtk.mpbg.core.exception.Failure
 import com.rtk.mpbg.core.extension.failure
 import com.rtk.mpbg.core.extension.observe
+import com.rtk.mpbg.core.navigation.Navigator
 import com.rtk.mpbg.databinding.FragmentHomeBinding
 import com.rtk.mpbg.ui.main.SectionsPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment: BaseFragment() {
+
+    @Inject
+    lateinit var navigator: Navigator
 
     private val homeViewModel: HomeViewModel by viewModels()
 

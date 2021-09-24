@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.rtk.mpbg.R
 import com.rtk.mpbg.core.extension.failure
 import com.rtk.mpbg.core.extension.observe
+import com.rtk.mpbg.core.navigation.Navigator
 import com.rtk.mpbg.databinding.FragmentMainBinding
 import com.rtk.mpbg.databinding.FragmentMobileListBinding
 import com.rtk.mpbg.ui.base.BaseFragment
@@ -21,6 +22,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MobileListFragment: BaseFragment() {
 
+    @Inject
+    lateinit var navigator: Navigator
     @Inject
     lateinit var mobilesAdapter: MobilesAdapter
 
@@ -76,9 +79,9 @@ class MobileListFragment: BaseFragment() {
         binding.mobileList.layoutManager = LinearLayoutManager(requireContext())
         binding.mobileList.adapter = mobilesAdapter
         renderMobilesList(mobiles)
-//        moviesAdapter.clickListener = { movie, navigationExtras ->
-//            navigator.showMovieDetails(requireActivity(), movie, navigationExtras)
-//        }
+        mobilesAdapter.clickListener = { mobile ->
+            navigator.showMobileDetails(requireActivity(), mobile)
+        }
     }
 
     private fun renderMobilesList(movies: List<MobileParcel>?) {
