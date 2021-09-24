@@ -43,11 +43,6 @@ class HomeFragment: BaseFragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
-        val sectionsPagerAdapter = SectionsPagerAdapter(requireContext(), parentFragmentManager )
-        val viewPager: ViewPager = binding.viewPager
-        viewPager.adapter = sectionsPagerAdapter
-        val tabs: TabLayout = binding.tabs
-        tabs.setupWithViewPager(viewPager)
         return view
     }
 
@@ -70,8 +65,11 @@ class HomeFragment: BaseFragment() {
 
     private fun renderMoviesList(movies: List<MobileParcel>?) {
         Log.d("Home Fragment", "renderMoviesList: $movies")
-//        moviesAdapter.collection = movies.orEmpty()
-//        hideProgress()
+        val sectionsPagerAdapter = SectionsPagerAdapter(requireContext(), parentFragmentManager, movies!!)
+        val viewPager: ViewPager = binding.viewPager
+        viewPager.adapter = sectionsPagerAdapter
+        val tabs: TabLayout = binding.tabs
+        tabs.setupWithViewPager(viewPager)
     }
 
     private fun handleFailure(failure: Failure?) {
