@@ -2,10 +2,12 @@ package com.rtk.mpbg.ui.home
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.rtk.mpbg.R
 import com.rtk.mpbg.core.extension.inflate
+import com.rtk.mpbg.core.extension.loadFromUrl
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -29,16 +31,19 @@ class MobilesAdapter
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val name: TextView
             val description: TextView
+            val image: ImageView
 
             init {
                 // Define click listener for the ViewHolder's View.
                 name = itemView.findViewById(R.id.mobile_name)
                 description = itemView.findViewById(R.id.description)
+                image = itemView.findViewById(R.id.imageView)
             }
 
         fun bind(movieView: MobileParcel) {
             name.text = movieView.name
             description.text = movieView.description
+            image.loadFromUrl(movieView.thumbImageURL)
 //            itemView.setOnClickListener {
 //                clickListener(
 //                    movieView,
