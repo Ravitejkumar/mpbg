@@ -64,6 +64,8 @@ class ProductFragment: BaseFragment() {
         Log.d("Product Fragment", "onViewCreated: $mobile")
         productViewModel.getProdcutDetails(mobile.id)
         binding.textView.text = (arguments?.get(PARAM_MOVIE) as MobileParcel).name
+        binding.description.text = mobile.description
+        binding.brand.text = mobile.brand
     }
 
     private fun handleProductDetails(details: List<ProductDetails>?){
